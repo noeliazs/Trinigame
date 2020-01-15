@@ -237,14 +237,14 @@ public class Inicio_sesion extends javax.swing.JFrame {
 			
 			 if(valorNombre.equals("admin")) {
 				 System.out.println("ENTRAMOS ADMINISTRADOR");
-//				guardarRecordado();
-//				this.setVisible(false);
-//				
-//				java.awt.EventQueue.invokeLater(new Runnable() {
-//					public void run() {
-//						new Vista_administrador().setVisible(true);
-//					}
-//				});
+				guardarRecordado();
+				this.setVisible(false);
+				
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						new Vista_administrador().setVisible(true);
+					}
+				});
 			}else{
 				guardarRecordado();
 				System.out.println("ENTRAMOS USUARIO");
