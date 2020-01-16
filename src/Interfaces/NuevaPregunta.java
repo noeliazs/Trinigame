@@ -1,12 +1,17 @@
 package Interfaces;
 
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import javax.swing.JOptionPane;
-
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 /**
  *
  * @author Jorge Martin Zaballos
@@ -192,8 +197,12 @@ public class NuevaPregunta extends javax.swing.JFrame {
 	 */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-		//aqui guardar la ubicacion en la BD !!!!! y vuelve a vista administrador
-		anadirPregunta();
+            try {
+                //aqui guardar la ubicacion en la BD !!!!! y vuelve a vista administrador
+                anadirPregunta();
+            } catch (IOException ex) {
+                Logger.getLogger(NuevaPregunta.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 		this.setVisible(false);
 
@@ -213,19 +222,48 @@ public class NuevaPregunta extends javax.swing.JFrame {
 	/**
 	 * metodo añadir ubicacion que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
 	 */
-	public void anadirPregunta() {
+	public void anadirPregunta() throws UnsupportedEncodingException, IOException {
 
 		categoria = txtCategoria.getText().toString();
 		//descripcionPregunta = CampoPregunta.getText().toString();
 		
+		URL url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/");
+                Map<String, Object> params = new LinkedHashMap<>();
+
+                params.put("categoria", categoria);
+                params.put("descripcion",descripcionPregunta);
+
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (postData.length() != 0)
+                        postData.append('&');
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()),
+                            "UTF-8"));
+                }
+                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type",
+                        "application/x-www-form-urlencoded");
+                conn.setRequestProperty("Content-Length",
+                        String.valueOf(postDataBytes.length));
+                conn.setDoOutput(true);
+                conn.getOutputStream().write(postDataBytes);
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                for (int c = in.read(); c != -1; c = in.read())
+                    System.out.print((char) c);
+
 		
-
-		URL url;
-
+                /*
+                URL url;
 		try {
 			// Creando un objeto URL
 			url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/" + categoria + "/" + descripcionPregunta + "/");
-
+                        
 			// Realizando la petición GET
 			URLConnection con = url.openConnection();
 
@@ -239,6 +277,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+                */
 
 		System.out.println("Pregunta añadida");
 

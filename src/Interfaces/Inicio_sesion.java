@@ -224,10 +224,11 @@ public class Inicio_sesion extends javax.swing.JFrame {
 
 			String linea;
 			linea = in.readLine();
-			//System.out.println(linea);
+			System.out.println(linea);
 
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(linea);
+                        
 			JSONArray json = (JSONArray) obj;
 			noRegistrado();
 			JSONObject object = (JSONObject) json.get(0);
