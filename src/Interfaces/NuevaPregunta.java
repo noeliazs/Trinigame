@@ -52,7 +52,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nueva ubicacion");
+        jLabel10.setText("Nueva Pregunta");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
