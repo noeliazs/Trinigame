@@ -193,7 +193,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 
 	/**
 	 *
-	 * @param evt Este método es el evento del boton guardar ubicacion que llama al metodo anadirUbicacion y vuelve a las opciones del administrador
+	 * @param evt Este método es el evento del boton guardar pregunta que llama al metodo  anadirPregunta y vuelve a las opciones del administrador
 	 */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
@@ -220,7 +220,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPreguntaActionPerformed
 
 	/**
-	 * metodo añadir ubicacion que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
+	 * metodo añadir pregunta que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
 	 */
 	public void anadirPregunta() throws UnsupportedEncodingException, IOException {
 
