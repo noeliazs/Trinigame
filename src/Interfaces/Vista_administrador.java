@@ -39,7 +39,6 @@ public class Vista_administrador extends javax.swing.JFrame {
         btnAnadirUsuario = new javax.swing.JButton();
         btnAnadirPreguntas = new javax.swing.JButton();
         btnAnadirRespuestas = new javax.swing.JButton();
-        btnAnadirRespuestas1 = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -111,14 +110,14 @@ public class Vista_administrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrar1)
-                .addGap(37, 37, 37))
+                .addGap(47, 47, 47))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addComponent(btnCerrar1)
-                .addGap(36, 36, 36))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         btnAnadirUsuario.setText("AÑADIR USUARIO");
@@ -143,14 +142,6 @@ public class Vista_administrador extends javax.swing.JFrame {
             }
         });
 
-        btnAnadirRespuestas1.setText("LISTAR PUNTUACIONES");
-        btnAnadirRespuestas1.setToolTipText("");
-        btnAnadirRespuestas1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnadirRespuestas1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,8 +153,7 @@ public class Vista_administrador extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAnadirUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAnadirPreguntas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAnadirRespuestas, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(btnAnadirRespuestas1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                    .addComponent(btnAnadirRespuestas, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
                 .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,10 +166,8 @@ public class Vista_administrador extends javax.swing.JFrame {
                 .addComponent(btnAnadirPreguntas)
                 .addGap(18, 18, 18)
                 .addComponent(btnAnadirRespuestas)
-                .addGap(18, 18, 18)
-                .addComponent(btnAnadirRespuestas1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,9 +178,7 @@ public class Vista_administrador extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -265,10 +251,6 @@ public class Vista_administrador extends javax.swing.JFrame {
 //		});
     }//GEN-LAST:event_btnAnadirRespuestasActionPerformed
 
-    private void btnAnadirRespuestas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirRespuestas1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAnadirRespuestas1ActionPerformed
-
 	/**
 	 * @param args the command line arguments
 	 * el main que inicia esta vista 
@@ -289,7 +271,6 @@ public class Vista_administrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnadirPreguntas;
     private javax.swing.JButton btnAnadirRespuestas;
-    private javax.swing.JButton btnAnadirRespuestas1;
     private javax.swing.JButton btnAnadirUsuario;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCerrar1;
