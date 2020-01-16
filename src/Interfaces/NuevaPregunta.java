@@ -46,9 +46,9 @@ public class NuevaPregunta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
-        jPanel12.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel12.setBackground(new java.awt.Color(116, 194, 225));
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -74,7 +74,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 3, 12)); // NOI18N
         jLabel1.setText("Categoría :");
 
-        jPanel11.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel11.setBackground(new java.awt.Color(116, 194, 225));
 
         btnCerrar1.setText("CERRAR");
         btnCerrar1.addActionListener(new java.awt.event.ActionListener() {
