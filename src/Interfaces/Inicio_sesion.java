@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Jorge Martin Zaballos Noelia PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ * @author Jorge,Ivan y Noelia
  */
 public class Inicio_sesion extends javax.swing.JFrame {
 
@@ -47,6 +47,7 @@ public class Inicio_sesion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
@@ -67,21 +68,29 @@ public class Inicio_sesion extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Inicio de sesion");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logopeque.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(116, 194, 225));
@@ -157,7 +166,7 @@ public class Inicio_sesion extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -249,18 +258,14 @@ public class Inicio_sesion extends javax.swing.JFrame {
 			}else{
 				guardarRecordado();
 				System.out.println("ENTRAMOS USUARIO");
-//				this.setVisible(false);
-//
-//				java.awt.EventQueue.invokeLater(new Runnable() {
-//					public void run() {
-//						try {
-//							new Vista_ubicacion(valorNombre).setVisible(true);
-//							//System.out.println(valorNombre);
-//						} catch (ParseException ex) {
-//							Logger.getLogger(Inicio_sesion.class.getName()).log(Level.SEVERE, null, ex);
-//						}
-//					}
-//				});
+                                this.setVisible(false);
+
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+                                            new Vista_carga(valorNombre).setVisible(true);
+                                            System.out.println(valorNombre);
+					}
+				});
 			}
 			
 		} catch (IOException e) {
@@ -371,6 +376,7 @@ public class Inicio_sesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

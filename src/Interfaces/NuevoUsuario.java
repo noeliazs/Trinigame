@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 /**
  *
- * @author Jorge Martin Zaballos
+ * @author Jorge,Ivan y Noelia
  */
 public class NuevoUsuario extends javax.swing.JFrame {
 
