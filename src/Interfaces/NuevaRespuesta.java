@@ -1,7 +1,11 @@
 package Interfaces;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -260,44 +264,16 @@ public class NuevaRespuesta extends javax.swing.JFrame {
                 respuestaIncorrecta2=txtIncorrecta2.getText().toString();
                 respuestaIncorrecta3=txtIncorrecta3.getText().toString();
                 respuestaIncorrecta4=txtIncorrecta4.getText().toString();
-		/*
-		URL url = new URL("http://localhost/servidor/public/pregunta/anadirRespuesta/");
-                Map<String, Object> params = new LinkedHashMap<>();
-
-                params.put("categoria", categoria);
-                params.put("descripcion",descripcionPregunta);
-
-                StringBuilder postData = new StringBuilder();
-                for (Map.Entry<String, Object> param : params.entrySet()) {
-                    if (postData.length() != 0)
-                        postData.append('&');
-                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                    postData.append('=');
-                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()),
-                            "UTF-8"));
-                }
-                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type",
-                        "application/x-www-form-urlencoded");
-                conn.setRequestProperty("Content-Length",
-                        String.valueOf(postDataBytes.length));
-                conn.setDoOutput(true);
-                conn.getOutputStream().write(postDataBytes);
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                for (int c = in.read(); c != -1; c = in.read())
-                    System.out.print((char) c);
-
-		
-                /*
+		String resp1=parsearPreguntaSalidaABD(respuestaCorrecta);
+                String resp2=parsearPreguntaSalidaABD(respuestaIncorrecta2);
+                String resp3=parsearPreguntaSalidaABD(respuestaIncorrecta3);
+                String resp4=parsearPreguntaSalidaABD(respuestaIncorrecta4);
+                //registrar la respuesta correcta
                 URL url;
 		try {
 			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/" + categoria + "/" + descripcionPregunta + "/");
-                        
+			url = new URL("http://localhost/servidor/public/respuesta/anadirRespuesta/" +idPregunta+"/"+resp1);
+                        //+ "/" + respuestaIncorrecta2 + "/"+respuestaIncorrecta3 + "/" + respuestaIncorrecta4 + "/");
 			// Realizando la petición GET
 			URLConnection con = url.openConnection();
 
@@ -311,9 +287,27 @@ public class NuevaRespuesta extends javax.swing.JFrame {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+                //registrar las incorrectas
                 
+                URL url2;
+		try {
+			// Creando un objeto URL
+			url2 = new URL("http://localhost/servidor/public/respuesta/anadirRespuestas/" +idPregunta+"/" + resp2 + "/"+resp3 + "/" + resp4);
+			// Realizando la petición GET
+			URLConnection con2 = url2.openConnection();
 
-	*/	System.out.println("Respuestas añadidas");
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con2.getInputStream()));
+
+			String linea2;
+			linea2 = in.readLine();
+			System.out.println(linea2);
+
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+
+		//System.out.println("Respuestas añadidas");
 
 	}
 
@@ -329,6 +323,11 @@ public class NuevaRespuesta extends javax.swing.JFrame {
 			}
 		});
 	}
+        
+         private String parsearPreguntaSalidaABD(String respuesta) {
+            String resp=respuesta.replace(" ", "%20");
+            return resp;
+        }
 	/**
 	 * Declaracion de todos los elementos graficos de esta vista
 	 */
