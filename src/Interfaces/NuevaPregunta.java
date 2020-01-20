@@ -1,14 +1,7 @@
 package Interfaces;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,8 +11,8 @@ import javax.swing.JOptionPane;
  */
 public class NuevaPregunta extends javax.swing.JFrame {
 	
-	public String categoria;
-	public String descripcionPregunta;
+	public static String categoria;
+	public static String descripcionPregunta;
 	
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
@@ -225,9 +218,10 @@ public class NuevaPregunta extends javax.swing.JFrame {
 	public void anadirPregunta() throws UnsupportedEncodingException, IOException {
 
 		categoria = txtCategoria.getText().toString();
+                AppComunicacion com=new AppComunicacion();
 		//descripcionPregunta = CampoPregunta.getText().toString();
 		
-		URL url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/");
+		/*URL url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/");
                 Map<String, Object> params = new LinkedHashMap<>();
 
                 params.put("categoria", categoria);
@@ -258,7 +252,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
                     System.out.print((char) c);
 
 		
-                /*
+                
                 URL url;
 		try {
 			// Creando un objeto URL
@@ -279,7 +273,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 		}
                 */
 
-		System.out.println("Pregunta añadida");
+		//System.out.println("Pregunta añadida");
 
 	}
 
