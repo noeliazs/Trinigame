@@ -39,6 +39,8 @@ class ComunicacionPOST {
             params = new LinkedHashMap<>();
             params.put("categoria", NuevaPregunta.categoria);
             params.put("pregunta", NuevaPregunta.descripcionPregunta);
+            //leer el input token que se envia
+           // params.put("_token",);
             
             postData = new StringBuilder();
             for (Map.Entry<String, Object> param : params.entrySet()) {

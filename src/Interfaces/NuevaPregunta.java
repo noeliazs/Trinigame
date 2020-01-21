@@ -1,7 +1,11 @@
 package Interfaces;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -186,7 +190,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 
 	/**
 	 *
-	 * @param evt Este método es el evento del boton guardar pregunta que llama al metodo  anadirPregunta y vuelve a las opciones del administrador
+	 * @param evt Este método es el evento del boton guardar ubicacion que llama al metodo anadirUbicacion y vuelve a las opciones del administrador
 	 */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
@@ -213,50 +217,17 @@ public class NuevaPregunta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPreguntaActionPerformed
 
 	/**
-	 * metodo añadir pregunta que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
+	 * metodo añadir ubicacion que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
 	 */
 	public void anadirPregunta() throws UnsupportedEncodingException, IOException {
 
 		categoria = txtCategoria.getText().toString();
-                AppComunicacion com=new AppComunicacion();
-		//descripcionPregunta = CampoPregunta.getText().toString();
-		
-		/*URL url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/");
-                Map<String, Object> params = new LinkedHashMap<>();
-
-                params.put("categoria", categoria);
-                params.put("descripcion",descripcionPregunta);
-
-                StringBuilder postData = new StringBuilder();
-                for (Map.Entry<String, Object> param : params.entrySet()) {
-                    if (postData.length() != 0)
-                        postData.append('&');
-                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                    postData.append('=');
-                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()),
-                            "UTF-8"));
-                }
-                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type",
-                        "application/x-www-form-urlencoded");
-                conn.setRequestProperty("Content-Length",
-                        String.valueOf(postDataBytes.length));
-                conn.setDoOutput(true);
-                conn.getOutputStream().write(postDataBytes);
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                for (int c = in.read(); c != -1; c = in.read())
-                    System.out.print((char) c);
-
-		
-                
+                //AppComunicacion com=new AppComunicacion();
+		String pregunta=parsearPreguntaSalidaABD(descripcionPregunta);
                 URL url;
 		try {
 			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/" + categoria + "/" + descripcionPregunta + "/");
+			url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/" + categoria + "/" + pregunta + "/");
                         
 			// Realizando la petición GET
 			URLConnection con = url.openConnection();
@@ -267,16 +238,25 @@ public class NuevaPregunta extends javax.swing.JFrame {
 			String linea;
 			linea = in.readLine();
 			System.out.println(linea);
+                        
 
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-                */
+                
 
-		//System.out.println("Pregunta añadida");
+		System.out.println("Pregunta añadida");
 
 	}
-
+        /**
+         * Este metodo nos transforma la pregunta para poder guardarla en la BD.
+         * @param descripcionPregunta
+         * @return 
+         */
+    private String parsearPreguntaSalidaABD(String descripcionPregunta) {
+        String pregunta=descripcionPregunta.replace(" ", "%20");
+        return pregunta;
+    }
 	/**
 	 * @param args the command line arguments
 	 * el main que inicia esta vista 
@@ -304,4 +284,8 @@ public class NuevaPregunta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JTextField txtCategoria;
     // End of variables declaration//GEN-END:variables
+
+    
+    
+  
 }

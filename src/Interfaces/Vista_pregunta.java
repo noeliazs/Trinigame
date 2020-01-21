@@ -16,6 +16,20 @@ public class Vista_pregunta extends javax.swing.JFrame {
      */
     public Vista_pregunta() {
         initComponents();
+        cargarPregunta();
+    }
+    
+    public void cargarPregunta(){
+        
+    }
+    /**
+     * Este método nos cambia la sintaxis de la pregunta de la BD al lenguaje natural para mostrarlo en la interfaz
+     * @param descripcionPregunta
+     * @return 
+     */
+    private String parsearPreguntEntradaAJava(String descripcionPregunta) {
+        String pregunta=descripcionPregunta.replace("%20", " ");
+        return pregunta;
     }
 
     /**

@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Jorge,Ivan y Noelia eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+ * @author Jorge,Ivan y Noelia
  */
 public class Inicio_sesion extends javax.swing.JFrame {
 
