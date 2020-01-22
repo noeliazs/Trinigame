@@ -154,6 +154,7 @@ public class Vista_fallo extends javax.swing.JFrame {
 	/**
 	 * @param evt Este método es el evento del boton cerrar que desactiva esta vista y vuelve a la vista de las opciones del administrador
 	 */
+    //
     private void btnSalirFalloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirFalloActionPerformed
 
 		this.setVisible(false);
