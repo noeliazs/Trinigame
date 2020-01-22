@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -24,24 +26,25 @@ import org.json.simple.parser.ParseException;
 public class Vista_pregunta extends javax.swing.JFrame {
 	
 	private int i;
+        private static String nombre;
 	private String categoria; 
 	private String pregunta;
 	private String Npregunta;
 	private String respuesta_correcta;
-	
-	
-	
-	private String RespuestaCorrecta;
-	private String RespuestaIncorrecta;
+        private static int contadorPuntos;
+        ArrayList<String>respuestas=new ArrayList();
+
 	private int id = (int) (Math.random() * ((10 - 1) +1)) + 1;;
 	
 
     /**
      * Creates new form Vista_pregunta
      */
-    public Vista_pregunta() throws ParseException {
-        initComponents();
-        cargarPregunta();
+    public Vista_pregunta(int contador,String nombre) throws ParseException {
+                contadorPuntos=contador;
+                this.nombre=nombre;
+                initComponents();
+                cargarPregunta();
 		cargarRespuesta_correcta();
 		cargarRespuestas_incorrectas();
     }
@@ -83,6 +86,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
 			txtCategoria.setText(categoria);
 			txtPregunta.setText(pregunta);
 			txtNpregunta.setText(Npregunta);
+                        txtPuntuacion.setText("Puntuacion "+contadorPuntos);
 		
 		} catch (IOException ex) {
 			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,11 +124,11 @@ public class Vista_pregunta extends javax.swing.JFrame {
 			for (i = 0; i < json.size(); i++) {
 				JSONObject object = (JSONObject) json.get(i);
 				respuesta_correcta = object.get("respuesta").toString();
+                                respuestas.add(respuesta_correcta);
 				
-		
 			}
 			
-			btnRespuesta1.setText(respuesta_correcta);
+			//btnRespuesta1.setText(respuesta_correcta);
 			
 		
 		} catch (IOException ex) {
@@ -132,13 +136,56 @@ public class Vista_pregunta extends javax.swing.JFrame {
 		}
 	}
 	
-	public void cargarRespuestas_incorrectas(){
+	public void cargarRespuestas_incorrectas() throws ParseException{
+		URL url;
+
+		try {
+			// Creando un objeto URL
+			url = new URL("http://localhost/servidor/public/pregunta/obtenerInCoRespuestaCorrectas/"+id);
+
+			// Realizando la petición GET
+			URLConnection con = url.openConnection();
+
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+			// para guardar la lectura 
+			String linea;
+
+			// Leyendo el resultado
+			linea = in.readLine();
+
+			//imprimo la lectura 
+			System.out.println(linea);
+
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(linea);
+			JSONArray json = (JSONArray) obj;
+			
+			for (i = 0; i < json.size(); i++) {
+				JSONObject object = (JSONObject) json.get(i);
+				respuestas.add(object.get("respuesta").toString());
+			}
+			
+                        
+			//btnRespuesta2.setText(respuestas.get(1));
+			//btnRespuesta3.setText(respuestas.get(2));
+                        //btnRespuesta4.setText(respuestas.get(3));
 		
+		} catch (IOException ex) {
+			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+		}
 		
-		
+		barajear();
 	}
 	
-	
+	public void barajear(){
+             Collections.shuffle(respuestas); 
+             btnRespuesta1.setText(respuestas.get(0));
+             btnRespuesta2.setText(respuestas.get(1));
+	     btnRespuesta3.setText(respuestas.get(2));
+             btnRespuesta4.setText(respuestas.get(3));
+        }
 	
     /**
      * Este método nos cambia la sintaxis de la pregunta de la BD al lenguaje natural para mostrarlo en la interfaz
@@ -293,19 +340,90 @@ public class Vista_pregunta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRespuesta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta1ActionPerformed
-        // TODO add your handling code here:
+       if(btnRespuesta1.getText().equals(respuesta_correcta)){
+           contadorPuntos++;
+           this.setVisible(false);
+           if(contadorPuntos==3){
+               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+           }
+           else{
+                    try {
+                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
+                 } catch (ParseException ex) {
+                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+           }
+           
+            
+       }
+       else{
+           this.setVisible(false);
+           new Vista_fallo(contadorPuntos).setVisible(true);
+       }
     }//GEN-LAST:event_btnRespuesta1ActionPerformed
 
     private void btnRespuesta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta2ActionPerformed
-        // TODO add your handling code here:
+        if(btnRespuesta2.getText().equals(respuesta_correcta)){
+           contadorPuntos++;
+           this.setVisible(false);
+           if(contadorPuntos==3){
+               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+           }
+           else{
+                    try {
+                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
+                 } catch (ParseException ex) {
+                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+           }
+       }
+       else{
+           this.setVisible(false);
+           new Vista_fallo(contadorPuntos).setVisible(true);
+       }
     }//GEN-LAST:event_btnRespuesta2ActionPerformed
 
     private void btnRespuesta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta4ActionPerformed
-        // TODO add your handling code here:
+        if(btnRespuesta4.getText().equals(respuesta_correcta)){
+           contadorPuntos++;
+           this.setVisible(false);
+           if(contadorPuntos==3){
+               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+           }
+           else{
+                    try {
+                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
+                 } catch (ParseException ex) {
+                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+           }
+       }
+       else{
+           this.setVisible(false);
+           new Vista_fallo(contadorPuntos).setVisible(true);
+           
+       }
     }//GEN-LAST:event_btnRespuesta4ActionPerformed
 
     private void btnRespuesta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta3ActionPerformed
-        // TODO add your handling code here:
+        if(btnRespuesta3.getText().equals(respuesta_correcta)){
+           contadorPuntos++;
+           this.setVisible(false);
+           if(contadorPuntos==3){
+               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+           }
+           else{
+                    try {
+                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
+                 } catch (ParseException ex) {
+                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+           }
+       }
+       else{
+           this.setVisible(false);
+           new Vista_fallo(contadorPuntos).setVisible(true);
+       }
     }//GEN-LAST:event_btnRespuesta3ActionPerformed
 
     /**
@@ -339,7 +457,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 				try {
-					new Vista_pregunta().setVisible(true);
+					new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
 				} catch (ParseException ex) {
 					Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
 				}

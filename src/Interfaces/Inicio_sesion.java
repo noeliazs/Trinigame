@@ -262,11 +262,7 @@ public class Inicio_sesion extends javax.swing.JFrame {
 
 				java.awt.EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						try {
-							new Vista_pregunta().setVisible(true);
-						} catch (ParseException ex) {
-							Logger.getLogger(Inicio_sesion.class.getName()).log(Level.SEVERE, null, ex);
-						}
+                                            new Vista_carga(valorNombre).setVisible(true);
                                             System.out.println(valorNombre);
 					}
 				});

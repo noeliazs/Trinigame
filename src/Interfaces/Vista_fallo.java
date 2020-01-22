@@ -1,21 +1,27 @@
 package Interfaces;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jorge,Ivan y Noelia
  */
 public class Vista_fallo extends javax.swing.JFrame {
 	
-	public static String categoria;
-	public static String descripcionPregunta;
+	private static int contadorPuntos;
 	
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
-	public Vista_fallo() {
+	public Vista_fallo(int contador) {
+                contadorPuntos=contador;
 		initComponents();
 
 		this.setLocation(700, 250);
 		this.setResizable(false);
+                txtPuntuacion.setText("Puntuacion "+contadorPuntos);
 	}
 
 	/**
@@ -155,7 +161,11 @@ public class Vista_fallo extends javax.swing.JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
-				new Vista_administrador().setVisible(true);
+                            try {
+                                new Inicio_sesion().setVisible(true);
+                            } catch (IOException ex) {
+                                Logger.getLogger(Vista_fallo.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 		});
     }//GEN-LAST:event_btnSalirFalloActionPerformed
@@ -171,7 +181,7 @@ public class Vista_fallo extends javax.swing.JFrame {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Vista_fallo().setVisible(true);
+				new Vista_fallo(contadorPuntos).setVisible(true);
 			}
 		});
 	}

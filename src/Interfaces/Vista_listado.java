@@ -5,18 +5,24 @@ package Interfaces;
  */
 public class Vista_listado extends javax.swing.JFrame {
 	
-	public static String categoria;
-	public static String descripcionPregunta;
+	private static int contador;
+        private static String nombre;
+        
 	
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
-	public Vista_listado() {
+	public Vista_listado(int contador,String nombre) {
+                this.contador=contador;
+                this.nombre=nombre;
 		initComponents();
 
 		this.setLocation(700, 250);
 		this.setResizable(false);
+                txtJug1.setText(nombre);
+                txtp1.setText(contador+"");
 	}
+       
 
 	/**
 	 * * Este método se llama desde el constructor para inicializar el formulario.
@@ -312,7 +318,7 @@ public class Vista_listado extends javax.swing.JFrame {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new Vista_listado().setVisible(true);
+				new Vista_listado(contador,nombre).setVisible(true);
 			}
 		});
 	}
