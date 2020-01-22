@@ -65,6 +65,9 @@
               <Image iconType="3" name="/img/carga.gif"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="actionPasarVista"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

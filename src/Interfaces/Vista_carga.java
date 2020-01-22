@@ -5,6 +5,10 @@
  */
 package Interfaces;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author Jorge,Ivan y Noelia
@@ -38,6 +42,11 @@ public class Vista_carga extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carga.gif"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                actionPasarVista(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -65,6 +74,10 @@ public class Vista_carga extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void actionPasarVista(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actionPasarVista
+        cambiarVista();
+    }//GEN-LAST:event_actionPasarVista
 
     /**
      * @param args the command line arguments
@@ -101,6 +114,20 @@ public class Vista_carga extends javax.swing.JFrame {
                 System.out.println(nombre);
             }
         });
+    }
+    
+     public void cambiarVista(){
+        this.setVisible(false);
+	java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            try {
+                                new Vista_pregunta().setVisible(true);
+                            } catch (ParseException ex) {
+                                Logger.getLogger(Vista_carga.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                }
+        });
+    
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
