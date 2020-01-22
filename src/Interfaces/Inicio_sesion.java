@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Jorge,Ivan y Noelia AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ * @author Jorge,Ivan y Noelia
  */
 public class Inicio_sesion extends javax.swing.JFrame {
 
@@ -262,7 +262,11 @@ public class Inicio_sesion extends javax.swing.JFrame {
 
 				java.awt.EventQueue.invokeLater(new Runnable() {
 					public void run() {
-                                            new Vista_carga(valorNombre).setVisible(true);
+						try {
+							new Vista_pregunta().setVisible(true);
+						} catch (ParseException ex) {
+							Logger.getLogger(Inicio_sesion.class.getName()).log(Level.SEVERE, null, ex);
+						}
                                             System.out.println(valorNombre);
 					}
 				});

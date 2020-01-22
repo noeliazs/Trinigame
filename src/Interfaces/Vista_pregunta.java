@@ -5,23 +5,141 @@
  */
 package Interfaces;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 /**
  *
- * @author Noelia Zarzoso
+ * @author Noelia Zarzoso  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
  */
 public class Vista_pregunta extends javax.swing.JFrame {
+	
+	private int i;
+	private String categoria; 
+	private String pregunta;
+	private String Npregunta;
+	private String respuesta_correcta;
+	
+	
+	
+	private String RespuestaCorrecta;
+	private String RespuestaIncorrecta;
+	private int id = (int) (Math.random() * ((10 - 1) +1)) + 1;;
+	
 
     /**
      * Creates new form Vista_pregunta
      */
-    public Vista_pregunta() {
+    public Vista_pregunta() throws ParseException {
         initComponents();
         cargarPregunta();
+		cargarRespuesta_correcta();
+		cargarRespuestas_incorrectas();
     }
     
-    public void cargarPregunta(){
+    public void cargarPregunta() throws ParseException{
+		URL url;
+
+		try {
+			// Creando un objeto URL
+			url = new URL("http://localhost/servidor/public/pregunta/obtenerPregunta/"+id);
+
+			// Realizando la petición GET
+			URLConnection con = url.openConnection();
+
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+			// para guardar la lectura 
+			String linea;
+
+			// Leyendo el resultado
+			linea = in.readLine();
+
+			//imprimo la lectura 
+			System.out.println(linea);
+
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(linea);
+			JSONArray json = (JSONArray) obj;
+			
+			for (i = 0; i < json.size(); i++) {
+				JSONObject object = (JSONObject) json.get(i);
+				categoria = object.get("categoria").toString();
+				pregunta = object.get("pregunta").toString();
+				Npregunta = object.get("id").toString();
+		
+			}
+			
+			txtCategoria.setText(categoria);
+			txtPregunta.setText(pregunta);
+			txtNpregunta.setText(Npregunta);
+		
+		} catch (IOException ex) {
+			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+		}
         
     }
+	
+	public void cargarRespuesta_correcta() throws ParseException{
+		
+		URL url;
+
+		try {
+			// Creando un objeto URL
+			url = new URL("http://localhost/servidor/public/pregunta/obtenerRespuestasCorrectas/"+id);
+
+			// Realizando la petición GET
+			URLConnection con = url.openConnection();
+
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+			// para guardar la lectura 
+			String linea;
+
+			// Leyendo el resultado
+			linea = in.readLine();
+
+			//imprimo la lectura 
+			System.out.println(linea);
+
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(linea);
+			JSONArray json = (JSONArray) obj;
+			
+			for (i = 0; i < json.size(); i++) {
+				JSONObject object = (JSONObject) json.get(i);
+				respuesta_correcta = object.get("respuesta").toString();
+				
+		
+			}
+			
+			btnRespuesta1.setText(respuesta_correcta);
+			
+		
+		} catch (IOException ex) {
+			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+	public void cargarRespuestas_incorrectas(){
+		
+		
+		
+	}
+	
+	
+	
     /**
      * Este método nos cambia la sintaxis de la pregunta de la BD al lenguaje natural para mostrarlo en la interfaz
      * @param descripcionPregunta
@@ -49,15 +167,16 @@ public class Vista_pregunta extends javax.swing.JFrame {
         btnRespuesta1 = new javax.swing.JButton();
         btnRespuesta2 = new javax.swing.JButton();
         btnRespuesta3 = new javax.swing.JButton();
-        txtRespuesta4 = new javax.swing.JButton();
+        btnRespuesta4 = new javax.swing.JButton();
         txtPregunta = new javax.swing.JLabel();
+        txtNpregunta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         txtNumPregunta.setFont(new java.awt.Font("Britannic Bold", 1, 18)); // NOI18N
-        txtNumPregunta.setText("Pregunta X");
+        txtNumPregunta.setText("Pregunta :");
 
         txtCategoria.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         txtCategoria.setText("Categoría");
@@ -81,16 +200,25 @@ public class Vista_pregunta extends javax.swing.JFrame {
         });
 
         btnRespuesta3.setText("Respuesta 3");
-
-        txtRespuesta4.setText("Respuesta 4");
-        txtRespuesta4.addActionListener(new java.awt.event.ActionListener() {
+        btnRespuesta3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRespuesta4ActionPerformed(evt);
+                btnRespuesta3ActionPerformed(evt);
+            }
+        });
+
+        btnRespuesta4.setText("Respuesta 4");
+        btnRespuesta4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRespuesta4ActionPerformed(evt);
             }
         });
 
         txtPregunta.setBackground(new java.awt.Color(51, 51, 255));
+        txtPregunta.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
         txtPregunta.setText("Soy la pregunta ");
+
+        txtNpregunta.setFont(new java.awt.Font("Britannic Bold", 1, 18)); // NOI18N
+        txtNpregunta.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,17 +227,19 @@ public class Vista_pregunta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(369, 369, 369)
-                        .addComponent(txtCategoria))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(762, 762, 762)
                         .addComponent(txtPuntuacion))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNumPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(605, 605, 605)
+                                .addGap(36, 36, 36)
+                                .addComponent(txtNumPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtNpregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                                .addComponent(txtCategoria)
+                                .addGap(285, 285, 285)
                                 .addComponent(txtTiempo))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -117,51 +247,46 @@ public class Vista_pregunta extends javax.swing.JFrame {
                                     .addComponent(btnRespuesta3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(57, 57, 57)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtRespuesta4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnRespuesta2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(txtPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 40, Short.MAX_VALUE))
+                                    .addComponent(btnRespuesta4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRespuesta2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))))))
+                .addGap(0, 105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(txtPregunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTiempo))
-                .addGap(26, 26, 26)
-                .addComponent(txtCategoria)
+                    .addComponent(txtTiempo)
+                    .addComponent(txtCategoria)
+                    .addComponent(txtNpregunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRespuesta1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                     .addComponent(btnRespuesta2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRespuesta3, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                    .addComponent(txtRespuesta4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRespuesta4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addComponent(txtPuntuacion)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -175,9 +300,13 @@ public class Vista_pregunta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRespuesta2ActionPerformed
 
-    private void txtRespuesta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRespuesta4ActionPerformed
+    private void btnRespuesta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRespuesta4ActionPerformed
+    }//GEN-LAST:event_btnRespuesta4ActionPerformed
+
+    private void btnRespuesta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRespuesta3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,7 +338,11 @@ public class Vista_pregunta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Vista_pregunta().setVisible(true);
+				try {
+					new Vista_pregunta().setVisible(true);
+				} catch (ParseException ex) {
+					Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+				}
             }
         });
     }
@@ -218,12 +351,13 @@ public class Vista_pregunta extends javax.swing.JFrame {
     private javax.swing.JButton btnRespuesta1;
     private javax.swing.JButton btnRespuesta2;
     private javax.swing.JButton btnRespuesta3;
+    private javax.swing.JButton btnRespuesta4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txtCategoria;
+    private javax.swing.JLabel txtNpregunta;
     private javax.swing.JLabel txtNumPregunta;
     private javax.swing.JLabel txtPregunta;
     private javax.swing.JLabel txtPuntuacion;
-    private javax.swing.JButton txtRespuesta4;
     private javax.swing.JLabel txtTiempo;
     // End of variables declaration//GEN-END:variables
 }
