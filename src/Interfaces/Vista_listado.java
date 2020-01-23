@@ -1,6 +1,18 @@
 package Interfaces;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -8,19 +20,65 @@ import java.io.IOException;
  */
 public class Vista_listado extends javax.swing.JFrame {
 
-
+        private ArrayList<String>nombres=new ArrayList();
+        private ArrayList<String>puntuaciones=new ArrayList();
+        
 	/**
 	 * Constructor de esta vista inicia los componentes se le añade una localizacion
 	 */
-	public Vista_listado() throws IOException {
+	public Vista_listado() {
 		initComponents();
 		this.setLocation(700, 250);
+            try {
+                cargarDatos();
+            } catch (ParseException ex) {
+                Logger.getLogger(Vista_listado.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Vista_listado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            escribirDatos();
 	}
+        
+        public void cargarDatos() throws MalformedURLException, IOException, ParseException{
+            URL url;
+			url = new URL("http://localhost/servidor/public/listaPuntuaciones");
+			// Realizando la petición GET
+			URLConnection con = url.openConnection();
 
-	/**
-	 * Este método se llama desde el constructor para inicializar el formulario.
-	 */
-	@SuppressWarnings("unchecked")
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String linea;
+			linea = in.readLine();
+			System.out.println(linea);
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(linea);
+			JSONArray json = (JSONArray) obj;
+                        
+                        for (int i = 0; i < json.size(); i++) {
+				JSONObject object = (JSONObject) json.get(i);
+				nombres.add(object.get("nombre").toString());
+                                puntuaciones.add(object.get("puntos").toString());
+			}
+        }
+        
+        public void escribirDatos(){
+            
+                txtNombre1.setText(nombres.get(0));
+                txtNombre2.setText(nombres.get(1));
+                txtNombre3.setText(nombres.get(2));
+                txtNombre4.setText(nombres.get(3));
+                txtNombre5.setText(nombres.get(4));
+            
+            
+                puntuacion1.setText(puntuaciones.get(0));
+                puntuacion2.setText(puntuaciones.get(1));
+                puntuacion3.setText(puntuaciones.get(2));
+                puntuacion4.setText(puntuaciones.get(3));
+                puntuacion5.setText(puntuaciones.get(4));
+            
+        }
+
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -37,11 +95,11 @@ public class Vista_listado extends javax.swing.JFrame {
         txtNombre3 = new javax.swing.JLabel();
         txtNombre4 = new javax.swing.JLabel();
         txtNombre5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        puntuacion1 = new javax.swing.JLabel();
+        puntuacion2 = new javax.swing.JLabel();
+        puntuacion3 = new javax.swing.JLabel();
+        puntuacion4 = new javax.swing.JLabel();
+        puntuacion5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de sesion");
@@ -121,15 +179,15 @@ public class Vista_listado extends javax.swing.JFrame {
 
         txtNombre5.setText("jLabel9");
 
-        jLabel3.setText("jLabel3");
+        puntuacion1.setText("jLabel3");
 
-        jLabel6.setText("jLabel6");
+        puntuacion2.setText("jLabel6");
 
-        jLabel7.setText("jLabel7");
+        puntuacion3.setText("jLabel7");
 
-        jLabel8.setText("jLabel8");
+        puntuacion4.setText("jLabel8");
 
-        jLabel9.setText("jLabel9");
+        puntuacion5.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,7 +206,7 @@ public class Vista_listado extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(txtNombre1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
+                        .addComponent(puntuacion1)
                         .addGap(117, 117, 117))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,10 +216,10 @@ public class Vista_listado extends javax.swing.JFrame {
                             .addComponent(txtNombre2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(puntuacion2)
+                            .addComponent(puntuacion3)
+                            .addComponent(puntuacion4)
+                            .addComponent(puntuacion5))
                         .addGap(117, 117, 117))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,23 +233,23 @@ public class Vista_listado extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre1)
-                    .addComponent(jLabel3))
+                    .addComponent(puntuacion1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre2)
-                    .addComponent(jLabel6))
+                    .addComponent(puntuacion2))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre3)
-                    .addComponent(jLabel7))
+                    .addComponent(puntuacion3))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre4)
-                    .addComponent(jLabel8))
+                    .addComponent(puntuacion4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre5)
-                    .addComponent(jLabel9))
+                    .addComponent(puntuacion5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -235,16 +293,16 @@ public class Vista_listado extends javax.swing.JFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel puntuacion1;
+    private javax.swing.JLabel puntuacion2;
+    private javax.swing.JLabel puntuacion3;
+    private javax.swing.JLabel puntuacion4;
+    private javax.swing.JLabel puntuacion5;
     private javax.swing.JLabel txtNombre1;
     private javax.swing.JLabel txtNombre2;
     private javax.swing.JLabel txtNombre3;

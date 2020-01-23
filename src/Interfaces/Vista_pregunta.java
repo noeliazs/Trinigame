@@ -6,19 +6,11 @@
 package Interfaces;
 
 import controladores.ControladorPregunta;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import controladores.ControladorTimer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -27,21 +19,14 @@ import org.json.simple.parser.ParseException;
  */
 public class Vista_pregunta extends javax.swing.JFrame {
 	
-	private int i;
         private static String nombre;
-	private String categoria; 
-	private String pregunta;
-	private String Npregunta;
-	private String respuesta_correcta;
-        private static int contadorPuntos;
-        ArrayList<String>respuestas=new ArrayList();
-        Timer timer;
+        private Timer timer;
         private static final int SEGUNDOS = 1000;
 	private static final int SEGUNDOSMIN = 0;
         private int contadorSegundos=30;
-        private ControladorPregunta controlador;
-
-	private int id = (int) (Math.random() * ((10 - 1) +1)) + 1;;
+        private ControladorTimer controladorTimer;
+        private ControladorPregunta control;
+        private static int contadorPuntos;
 	
 
     /**
@@ -51,150 +36,38 @@ public class Vista_pregunta extends javax.swing.JFrame {
                 contadorPuntos=contador;
                 this.nombre=nombre;
                 initComponents();
-                controlador=new ControladorPregunta(this);
-                crearTimer();
-                cargarPregunta();
-		cargarRespuesta_correcta();
-		cargarRespuestas_incorrectas();
+                controladorTimer=new ControladorTimer(this);
+                crearTimer();        
+                control=new ControladorPregunta(this,nombre);
+                btnRespuesta1.addActionListener(control);
+                btnRespuesta2.addActionListener(control);
+                btnRespuesta3.addActionListener(control);
+                btnRespuesta4.addActionListener(control);
+                btnRespuesta1.setActionCommand("BOTON1");
+                btnRespuesta2.setActionCommand("BOTON2");
+                btnRespuesta3.setActionCommand("BOTON3");
+                btnRespuesta4.setActionCommand("BOTON4");
+                
     }
     
-    public void cargarPregunta() throws ParseException{
-		URL url;
-
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/obtenerPregunta/"+id);
-
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			// para guardar la lectura 
-			String linea;
-
-			// Leyendo el resultado
-			linea = in.readLine();
-
-			//imprimo la lectura 
-			System.out.println(linea);
-
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(linea);
-			JSONArray json = (JSONArray) obj;
-			
-			for (i = 0; i < json.size(); i++) {
-				JSONObject object = (JSONObject) json.get(i);
-				categoria = object.get("categoria").toString();
-				pregunta = object.get("pregunta").toString();
-				Npregunta = object.get("id").toString();
-		
-			}
-			
-			txtCategoria.setText(categoria);
-			txtPregunta.setText(pregunta);
-			txtNpregunta.setText(Npregunta);
-                        txtPuntuacion.setText("Puntuacion "+contadorPuntos);
-		
-		} catch (IOException ex) {
-			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-		}
-        
+    public String getBoton1(){
+        return btnRespuesta1.getText();
     }
-	
-	public void cargarRespuesta_correcta() throws ParseException{
-		
-		URL url;
+    
+    public String getBoton2(){
+        return btnRespuesta2.getText();
+    }
+    
+    public String getBoton3(){
+        return btnRespuesta3.getText();
+    }
+    
+    public String getBoton4(){
+        return btnRespuesta4.getText();
+    }
 
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/obtenerRespuestasCorrectas/"+id);
-
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			// para guardar la lectura 
-			String linea;
-
-			// Leyendo el resultado
-			linea = in.readLine();
-
-			//imprimo la lectura 
-			System.out.println(linea);
-
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(linea);
-			JSONArray json = (JSONArray) obj;
-			
-			for (i = 0; i < json.size(); i++) {
-				JSONObject object = (JSONObject) json.get(i);
-				respuesta_correcta = object.get("respuesta").toString();
-                                respuestas.add(respuesta_correcta);
-				
-			}
-			
-			//btnRespuesta1.setText(respuesta_correcta);
-			
-		
-		} catch (IOException ex) {
-			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-	
-	public void cargarRespuestas_incorrectas() throws ParseException{
-		URL url;
-
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/obtenerInCoRespuestaCorrectas/"+id);
-
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			// para guardar la lectura 
-			String linea;
-
-			// Leyendo el resultado
-			linea = in.readLine();
-
-			//imprimo la lectura 
-			System.out.println(linea);
-
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(linea);
-			JSONArray json = (JSONArray) obj;
-			
-			for (i = 0; i < json.size(); i++) {
-				JSONObject object = (JSONObject) json.get(i);
-				respuestas.add(object.get("respuesta").toString());
-			}
-			
-                        
-			//btnRespuesta2.setText(respuestas.get(1));
-			//btnRespuesta3.setText(respuestas.get(2));
-                        //btnRespuesta4.setText(respuestas.get(3));
-		
-		} catch (IOException ex) {
-			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		barajear();
-	}
-	
-	public void barajear(){
-             Collections.shuffle(respuestas); 
-             btnRespuesta1.setText(respuestas.get(0));
-             btnRespuesta2.setText(respuestas.get(1));
-	     btnRespuesta3.setText(respuestas.get(2));
-             btnRespuesta4.setText(respuestas.get(3));
-        }
+   
+    
 	
     /**
      * Este método nos cambia la sintaxis de la pregunta de la BD al lenguaje natural para mostrarlo en la interfaz
@@ -206,12 +79,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
         return pregunta;
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -242,32 +110,12 @@ public class Vista_pregunta extends javax.swing.JFrame {
         txtPuntuacion.setText("Puntuacion:");
 
         btnRespuesta1.setText("Respuesta 1");
-        btnRespuesta1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuesta1ActionPerformed(evt);
-            }
-        });
 
         btnRespuesta2.setText("Respuesta 2");
-        btnRespuesta2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuesta2ActionPerformed(evt);
-            }
-        });
 
         btnRespuesta3.setText("Respuesta 3");
-        btnRespuesta3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuesta3ActionPerformed(evt);
-            }
-        });
 
         btnRespuesta4.setText("Respuesta 4");
-        btnRespuesta4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRespuesta4ActionPerformed(evt);
-            }
-        });
 
         txtPregunta.setBackground(new java.awt.Color(51, 51, 255));
         txtPregunta.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
@@ -348,137 +196,26 @@ public class Vista_pregunta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRespuesta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta1ActionPerformed
-       if(btnRespuesta1.getText().equals(respuesta_correcta)){
-           contadorPuntos++;
-           this.setVisible(false);
-           if(contadorPuntos==3){
-               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
-           }
-           else{
-                    try {
-                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
-                 } catch (ParseException ex) {
-                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-           }
-           
-            
-       }
-       else{
-           this.setVisible(false);
-           new Vista_fallo(contadorPuntos).setVisible(true);
-       }
-    }//GEN-LAST:event_btnRespuesta1ActionPerformed
-
-    private void btnRespuesta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta2ActionPerformed
-        if(btnRespuesta2.getText().equals(respuesta_correcta)){
-           contadorPuntos++;
-           this.setVisible(false);
-           if(contadorPuntos==3){
-               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
-           }
-           else{
-                    try {
-                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
-                 } catch (ParseException ex) {
-                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-           }
-       }
-       else{
-           this.setVisible(false);
-           new Vista_fallo(contadorPuntos).setVisible(true);
-       }
-    }//GEN-LAST:event_btnRespuesta2ActionPerformed
-
-    private void btnRespuesta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta4ActionPerformed
-        if(btnRespuesta4.getText().equals(respuesta_correcta)){
-           contadorPuntos++;
-           this.setVisible(false);
-           if(contadorPuntos==3){
-               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
-           }
-           else{
-                    try {
-                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
-                 } catch (ParseException ex) {
-                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-           }
-       }
-       else{
-           this.setVisible(false);
-           new Vista_fallo(contadorPuntos).setVisible(true);
-           
-       }
-    }//GEN-LAST:event_btnRespuesta4ActionPerformed
-
-    private void btnRespuesta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRespuesta3ActionPerformed
-        if(btnRespuesta3.getText().equals(respuesta_correcta)){
-           contadorPuntos++;
-           this.setVisible(false);
-           if(contadorPuntos==3){
-               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
-           }
-           else{
-                    try {
-                     new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
-                 } catch (ParseException ex) {
-                     Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-           }
-       }
-       else{
-           this.setVisible(false);
-           new Vista_fallo(contadorPuntos).setVisible(true);
-       }
-    }//GEN-LAST:event_btnRespuesta3ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vista_pregunta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vista_pregunta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vista_pregunta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vista_pregunta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-				try {
-					new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
-				} catch (ParseException ex) {
-					Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
-				}
-            }
-        });
-    }
+            public void run() {			
+                try {	
+                    new Vista_pregunta(contadorPuntos,nombre).setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+	    }
+            });
+        }
+    
     
     /**
 	 * Creamos el timer
 	 */
 	public void crearTimer() {
-		timer = new Timer(SEGUNDOS,controlador);
+		timer = new Timer(SEGUNDOS,controladorTimer);
 		timer.setActionCommand("TIEMPO");
 		timer.setRepeats(true);
 		timer.start();
@@ -499,6 +236,13 @@ public class Vista_pregunta extends javax.swing.JFrame {
                         
 		}
 	}
+        
+        public void escribir(String categoria, String pregunta, String nPregunta,int contadorPuntos){
+            txtCategoria.setText(categoria);
+	    txtPregunta.setText(pregunta);
+	    txtNpregunta.setText(nPregunta);
+            txtPuntuacion.setText("Puntuacion "+contadorPuntos);
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRespuesta1;
@@ -513,4 +257,11 @@ public class Vista_pregunta extends javax.swing.JFrame {
     private javax.swing.JLabel txtPuntuacion;
     private javax.swing.JLabel txtTiempo;
     // End of variables declaration//GEN-END:variables
+
+    public void escribirRespuestas(ArrayList<String> respuestas) {
+             btnRespuesta1.setText(respuestas.get(0));
+             btnRespuesta2.setText(respuestas.get(1));
+	     btnRespuesta3.setText(respuestas.get(2));
+             btnRespuesta4.setText(respuestas.get(3));
+    }
 }

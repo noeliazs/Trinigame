@@ -144,33 +144,21 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Respuesta 1"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRespuesta1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRespuesta2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Respuesta 2"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRespuesta2ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRespuesta3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Respuesta 3"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRespuesta3ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRespuesta4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Respuesta 4"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRespuesta4ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="txtPregunta">
           <Properties>

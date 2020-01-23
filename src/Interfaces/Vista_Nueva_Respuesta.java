@@ -1,24 +1,13 @@
 package Interfaces;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controladores.ControladorNuevaRespuesta;
+
 /**
  *
  * @author Jorge,Ivan y Noelia
  */
 public class Vista_Nueva_Respuesta extends javax.swing.JFrame {
-	
-	private int idPregunta;
-        private String respuestaCorrecta;
-        private String respuestaIncorrecta2;
-        private String respuestaIncorrecta3;
-        private String respuestaIncorrecta4;
+	private ControladorNuevaRespuesta controlador;
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
@@ -26,12 +15,38 @@ public class Vista_Nueva_Respuesta extends javax.swing.JFrame {
 		initComponents();
 		this.setLocation(700, 250);
 		this.setResizable(false);
+                controlador=new ControladorNuevaRespuesta(this);
+                btnGuardar.addActionListener(controlador);
+                btnGuardar.setActionCommand("GUARDAR");
+                btnCerrar1.setActionCommand("CERRAR");
+                btnCerrar1.addActionListener(controlador);
 	}
+        
+        public int getIdPregunta(){
+            int idPregunta= Integer.parseInt(txtIdPregunta.getText().toString());
+            return idPregunta;
+        }
+        
+        public String getRespuestaCorrecta(){
+            String respuestaCorrecta=txtCorrecta.getText().toString();
+            return respuestaCorrecta;
+        }
+        
+        public String getRespuestIncorrecta2(){
+           String respuestaIncorrecta2=txtIncorrecta2.getText().toString();
+           return respuestaIncorrecta2;
+        }
+              
+        public String getRespuestaIncorrecta3(){
+            String respuestaIncorrecta3=txtIncorrecta3.getText().toString();
+            return respuestaIncorrecta3;
+        }
+        
+        public String getRespuestaIncorrecta4(){
+            String respuestaIncorrecta4=txtIncorrecta4.getText().toString();
+            return respuestaIncorrecta4;
+        }
 
-	/**
-	 * * Este método se llama desde el constructor para inicializar el formulario.
-	 */
-	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -93,18 +108,8 @@ public class Vista_Nueva_Respuesta extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(116, 194, 225));
 
         btnCerrar1.setText("CERRAR");
-        btnCerrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrar1ActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setText("GUARDAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -216,118 +221,7 @@ public class Vista_Nueva_Respuesta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	/**
-	 * @param evt Este método es el evento del boton cerrar que desactiva esta vista y vuelve a la vista de las opciones del administrador
-	 */
-    private void btnCerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrar1ActionPerformed
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnCerrar1ActionPerformed
-
-	/**
-	 *
-	 * @param evt Este método es el evento del boton guardar ubicacion que llama al metodo anadirUbicacion y vuelve a las opciones del administrador
-	 */
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-            try {
-                //aqui guardar la ubicacion en la BD !!!!! y vuelve a vista administrador
-                anadirRespuestas();
-            } catch (IOException ex) {
-                Logger.getLogger(Vista_Nueva_Respuesta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-	/**
-	 * metodo añadir ubicacion que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
-	 */
-	public void anadirRespuestas() throws UnsupportedEncodingException, IOException {
-
-		idPregunta= Integer.parseInt(txtIdPregunta.getText().toString());
-		respuestaCorrecta=txtCorrecta.getText().toString();
-                respuestaIncorrecta2=txtIncorrecta2.getText().toString();
-                respuestaIncorrecta3=txtIncorrecta3.getText().toString();
-                respuestaIncorrecta4=txtIncorrecta4.getText().toString();
-		String resp1=parsearPreguntaSalidaABD(respuestaCorrecta);
-                String resp2=parsearPreguntaSalidaABD(respuestaIncorrecta2);
-                String resp3=parsearPreguntaSalidaABD(respuestaIncorrecta3);
-                String resp4=parsearPreguntaSalidaABD(respuestaIncorrecta4);
-                //registrar la respuesta correcta
-                URL url;
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/respuesta/anadirRespuesta/" +idPregunta+"/"+resp1);
-                        //+ "/" + respuestaIncorrecta2 + "/"+respuestaIncorrecta3 + "/" + respuestaIncorrecta4 + "/");
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			String linea;
-			linea = in.readLine();
-			System.out.println(linea);
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-                //registrar las incorrectas
-                
-                URL url2;
-		try {
-			// Creando un objeto URL
-			url2 = new URL("http://localhost/servidor/public/respuesta/anadirRespuestas/" +idPregunta+"/" + resp2 + "/"+resp3 + "/" + resp4);
-			// Realizando la petición GET
-			URLConnection con2 = url2.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con2.getInputStream()));
-
-			String linea2;
-			linea2 = in.readLine();
-			System.out.println(linea2);
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-
-		//System.out.println("Respuestas añadidas");
-
-	}
-
-	/**
-	 * @param args the command line arguments
-	 * el main que inicia esta vista 
-	 */
-	public static void main(String args[]) {
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Vista_Nueva_Respuesta().setVisible(true);
-			}
-		});
-	}
-        
-         private String parsearPreguntaSalidaABD(String respuesta) {
-            String resp=respuesta.replace(" ", "%20");
-            return resp;
-        }
+	
 	/**
 	 * Declaracion de todos los elementos graficos de esta vista
 	 */

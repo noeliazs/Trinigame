@@ -63,15 +63,9 @@ public class ControladorAdministrador implements ActionListener{
                 break;
             case "LISTADO":
                 vista.setVisible(false);
-			
-			/* Create and display the form */
 			java.awt.EventQueue.invokeLater(new Runnable() {
 				public void run() {
-                                    try {
-                                        new Vista_listado().setVisible(true);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Vista_administrador.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                    new Vista_listado().setVisible(true);
 			}
 		});
                 break;
