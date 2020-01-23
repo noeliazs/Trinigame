@@ -1,23 +1,31 @@
 
 package Interfaces;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controladores.ControladorAdministrador;
 
 /**
  *
  * @author Jorge Martin Zaballos
  */
 public class Vista_administrador extends javax.swing.JFrame {
-
+        private ControladorAdministrador controlador;
 	/**
 	 * Constructor de esta vista 
 	 * inicia los componentes y se le aplica localizacion en pantalla 
 	 */
 	public Vista_administrador() {
 		initComponents();
-		
+                controlador=new ControladorAdministrador(this);
+		btnAnadirUsuario.setActionCommand("USUARIOS");
+                btnAnadirUsuario.addActionListener(controlador);
+                btnAnadirPreguntas.setActionCommand("PREGUNTAS");
+                btnAnadirPreguntas.addActionListener(controlador);
+                btnAnadirRespuestas.setActionCommand("RESPUESTAS");
+                btnAnadirRespuestas.addActionListener(controlador);
+                btnListado.setActionCommand("LISTADO");
+                btnListado.addActionListener(controlador);
+                btnCerrar.setActionCommand("SALIR");
+                btnCerrar.addActionListener(controlador);
 		this.setLocation(700, 250);
 	}
 
@@ -42,7 +50,7 @@ public class Vista_administrador extends javax.swing.JFrame {
         btnAnadirUsuario = new javax.swing.JButton();
         btnAnadirPreguntas = new javax.swing.JButton();
         btnAnadirRespuestas = new javax.swing.JButton();
-        btnAnadirUsuario2 = new javax.swing.JButton();
+        btnListado = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -115,11 +123,6 @@ public class Vista_administrador extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(116, 194, 225));
 
         btnCerrar1.setText("CERRAR SESIÓN");
-        btnCerrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrar1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -139,33 +142,13 @@ public class Vista_administrador extends javax.swing.JFrame {
         );
 
         btnAnadirUsuario.setText("AÑADIR USUARIO");
-        btnAnadirUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnadirUsuarioActionPerformed(evt);
-            }
-        });
 
         btnAnadirPreguntas.setText("AÑADIR PREGUNTAS");
-        btnAnadirPreguntas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnadirPreguntasActionPerformed(evt);
-            }
-        });
 
         btnAnadirRespuestas.setText("AÑADIR RESPUESTAS");
         btnAnadirRespuestas.setToolTipText("");
-        btnAnadirRespuestas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnadirRespuestasActionPerformed(evt);
-            }
-        });
 
-        btnAnadirUsuario2.setText("LISTADO PUNTUACIONES");
-        btnAnadirUsuario2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListadoPuntuacionesActionPerformed(evt);
-            }
-        });
+        btnListado.setText("LISTADO PUNTUACIONES");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,7 +159,7 @@ public class Vista_administrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(103, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAnadirUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListado, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnadirRespuestas, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnadirPreguntas, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnadirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,7 +176,7 @@ public class Vista_administrador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnAnadirRespuestas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(btnAnadirUsuario2)
+                .addComponent(btnListado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -212,91 +195,9 @@ public class Vista_administrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	/**
-	 * 
-	 * @param evt 
-	 * Este método es el evento del boton añadir usuario que desactiva esta vista y te lleva a la vista para añadir un usuario
-	 */
-    private void btnAnadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirUsuarioActionPerformed
-        this.setVisible(false);
-
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-				new NuevoUsuario().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnAnadirUsuarioActionPerformed
-
-	/**
-	 * 
-	 * @param evt 
-	 * Este método es el evento del boton cerrar que vuelve al inicio de sesion
-	 */
-    private void btnCerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrar1ActionPerformed
-        this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				try {
-					new Inicio_sesion().setVisible(true);
-				} catch (IOException ex) {
-					Logger.getLogger(Vista_administrador.class.getName()).log(Level.SEVERE, null, ex);
-				}
-			}
-		});
-    }//GEN-LAST:event_btnCerrar1ActionPerformed
-
-	/**
-	 * 
-	 * @param evt 
-	 * Este método es el evento del boton añadir preguntas, desactiva esta vista y te lleva a la vista de añadir preguntas 
-	 */
-    private void btnAnadirPreguntasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirPreguntasActionPerformed
-        this.setVisible(false);
-			
-			/* Create and display the form */
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-				new NuevaPregunta().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnAnadirPreguntasActionPerformed
-
-	/**
-	 * 
-	 * @param evt 
-	 * Este método es el evento del boton añadir ubicacion, desactiva esta vista y te lleva a la vista de añadir ubicacion 
-	 */
-    private void btnAnadirRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirRespuestasActionPerformed
-        this.setVisible(false);
-			
-			/* Create and display the form */
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-				new NuevaRespuesta().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnAnadirRespuestasActionPerformed
-
     private void btnAnadirUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirUsuario1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAnadirUsuario1ActionPerformed
-
-    private void btnListadoPuntuacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListadoPuntuacionesActionPerformed
-         this.setVisible(false);
-			
-			/* Create and display the form */
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-                                    try {
-                                        new VistaListado().setVisible(true);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(Vista_administrador.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-			}
-		});
-    }//GEN-LAST:event_btnListadoPuntuacionesActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -320,10 +221,10 @@ public class Vista_administrador extends javax.swing.JFrame {
     private javax.swing.JButton btnAnadirRespuestas;
     private javax.swing.JButton btnAnadirUsuario;
     private javax.swing.JButton btnAnadirUsuario1;
-    private javax.swing.JButton btnAnadirUsuario2;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCerrar1;
     private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnListado;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -1,34 +1,39 @@
 package Interfaces;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import controladores.ControladorNuevoUsuario;
 
 /**
  *
  * @author Jorge,Ivan y Noelia
  */
-public class NuevoUsuario extends javax.swing.JFrame {
+public class Vista_Nuevo_Usuario extends javax.swing.JFrame {
 
-	private String usuario;
-	private String password;
-
+        private ControladorNuevoUsuario controlador;
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
-	public NuevoUsuario() {
+	public Vista_Nuevo_Usuario() {
 		initComponents();
 
 		this.setLocation(700, 250);
 		this.setResizable(false);
+                controlador=new ControladorNuevoUsuario(this);
+                btnGuardar14.addActionListener(controlador);
+                btnGuardar14.setActionCommand("GUARDAR");
+                btnCerrar15.addActionListener(controlador);
+                btnCerrar15.setActionCommand("CERRAR");
 	}
 
-	/**
-	 * Este método se llama desde el constructor para inicializar el formulario.
-	 */
-	@SuppressWarnings("unchecked")
+	
+        public String getNombre(){
+            String usuario = txtNuevoUser.getText().toString();
+            return usuario;
+        }
+        
+        public String getPassword(){
+            String password = txtNuevoPass.getText().toString();
+            return password;
+        }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -73,18 +78,8 @@ public class NuevoUsuario extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(116, 194, 225));
 
         btnCerrar15.setText("CERRAR");
-        btnCerrar15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrar1ActionPerformed(evt);
-            }
-        });
 
         btnGuardar14.setText("GUARDAR");
-        btnGuardar14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -160,72 +155,7 @@ public class NuevoUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	/**
-	 *
-	 * @param evt Este método es el evento del boton guardar usuario que llama al metodo anadirUsuario y vuelve a las opciones del administrador
-	 */
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-		//aqui guardar el usuario en la BD !!!!! y vuelve a vista administrador
-		anadirUsuario();
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-	/**
-	 *
-	 * @param evt Este método es el evento del boton cerrar que desactiva esta vista y vuelve a la vista de las opciones del administrador
-	 */
-    private void btnCerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrar1ActionPerformed
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnCerrar1ActionPerformed
-
-	/**
-	 * metodo añadir usuario que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
-	 */
-	public void anadirUsuario() {
-
-		usuario = txtNuevoUser.getText().toString();
-		password = txtNuevoPass.getText().toString();
-
-		URL url;
-
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/usuario/anadirUsuario/" + usuario + "/" + password + "/");
-
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			String linea;
-			linea = in.readLine();
-			System.out.println(linea);
-
-			System.out.println("Usuario añadido");
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
+	
 
 	/**
 	 * @param args the command line arguments
@@ -235,7 +165,7 @@ public class NuevoUsuario extends javax.swing.JFrame {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new NuevoUsuario().setVisible(true);
+				new Vista_Nuevo_Usuario().setVisible(true);
 			}
 		});
 	}

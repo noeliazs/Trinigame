@@ -163,7 +163,7 @@ public class Vista_fallo extends javax.swing.JFrame {
 			public void run() {
 
                             try {
-                                new Inicio_sesion().setVisible(true);
+                                new Vista_inicio_sesion().setVisible(true);
                             } catch (IOException ex) {
                                 Logger.getLogger(Vista_fallo.class.getName()).log(Level.SEVERE, null, ex);
                             }

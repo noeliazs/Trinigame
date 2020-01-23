@@ -1,36 +1,35 @@
 package Interfaces;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import controladores.ControladorNuevaPregunta;
 /**
  *
  * @author Jorge,Ivan y Noelia
  */
-public class NuevaPregunta extends javax.swing.JFrame {
-	
-	public static String categoria;
-	public static String descripcionPregunta;
+public class Vista_Nueva_Pregunta extends javax.swing.JFrame {
+
+        private ControladorNuevaPregunta controlador;
 	
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
-	public NuevaPregunta() {
+	public Vista_Nueva_Pregunta() {
 		initComponents();
-
 		this.setLocation(700, 250);
 		this.setResizable(false);
+                controlador=new ControladorNuevaPregunta(this);
+                btnGuardar.setActionCommand("GUARDAR");
+                btnGuardar.addActionListener(controlador);
+                btnCerrar1.setActionCommand("CERRAR");
+                btnCerrar1.addActionListener(controlador);
+                btnPregunta.setActionCommand("PREGUNTA");
+                btnPregunta.addActionListener(controlador);
+                
 	}
-
-	/**
-	 * * Este método se llama desde el constructor para inicializar el formulario.
-	 */
+        public String getCategoria(){
+            String categoria = txtCategoria.getText().toString();
+            return categoria;
+        }
+	
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,7 +43,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
         btnCerrar1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButtonPregunta = new javax.swing.JButton();
+        btnPregunta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,18 +78,8 @@ public class NuevaPregunta extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(116, 194, 225));
 
         btnCerrar1.setText("CERRAR");
-        btnCerrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrar1ActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setText("GUARDAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -116,12 +105,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("sansserif", 3, 12)); // NOI18N
         jLabel2.setText("Pregunta :");
 
-        jButtonPregunta.setText("Pregunta");
-        jButtonPregunta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPreguntaActionPerformed(evt);
-            }
-        });
+        btnPregunta.setText("Pregunta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,7 +124,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
                         .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(jButtonPregunta)))
+                        .addComponent(btnPregunta)))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -154,7 +138,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButtonPregunta))
+                    .addComponent(btnPregunta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -173,90 +157,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	/**
-	 * @param evt Este método es el evento del boton cerrar que desactiva esta vista y vuelve a la vista de las opciones del administrador
-	 */
-    private void btnCerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrar1ActionPerformed
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnCerrar1ActionPerformed
-
-	/**
-	 *
-	 * @param evt Este método es el evento del boton guardar pregunta que llama al metodo  anadirPregunta y vuelve a las opciones del administrador
-	 */
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-            try {
-                //aqui guardar la ubicacion en la BD !!!!! y vuelve a vista administrador
-                anadirPregunta();
-            } catch (IOException ex) {
-                Logger.getLogger(NuevaPregunta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-		this.setVisible(false);
-
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-
-				new Vista_administrador().setVisible(true);
-			}
-		});
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void jButtonPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPreguntaActionPerformed
-
-		descripcionPregunta = JOptionPane.showInputDialog( "Introduce la descripcion de la pregunta"); // aqui java to toma como cadena		
-    }//GEN-LAST:event_jButtonPreguntaActionPerformed
-
-	/**
-	 * metodo añadir pregunta que coge los valores introducidos y manda peticion al servidor para comprobar si existe y si no existe lo crea
-	 */
-	public void anadirPregunta() throws UnsupportedEncodingException, IOException {
-
-		categoria = txtCategoria.getText().toString();
-                //AppComunicacion com=new AppComunicacion();
-		String pregunta=parsearPreguntaSalidaABD(descripcionPregunta);
-                URL url;
-		try {
-			// Creando un objeto URL
-			url = new URL("http://localhost/servidor/public/pregunta/anadirPregunta/" + categoria + "/" + pregunta + "/");
-                        
-			// Realizando la petición GET
-			URLConnection con = url.openConnection();
-
-			// Leyendo el resultado
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-			String linea;
-			linea = in.readLine();
-			System.out.println(linea);
-                        
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-                
-
-		System.out.println("Pregunta añadida");
-
-	}
-        /**
-         * Este metodo nos transforma la pregunta para poder guardarla en la BD.
-         * @param descripcionPregunta
-         * @return 
-         */
-    private String parsearPreguntaSalidaABD(String descripcionPregunta) {
-        String pregunta=descripcionPregunta.replace(" ", "%20");
-        return pregunta;
-    }
+	
 	/**
 	 * @param args the command line arguments
 	 * el main que inicia esta vista 
@@ -265,7 +166,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new NuevaPregunta().setVisible(true);
+				new Vista_Nueva_Pregunta().setVisible(true);
 			}
 		});
 	}
@@ -275,7 +176,7 @@ public class NuevaPregunta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar1;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButtonPregunta;
+    private javax.swing.JButton btnPregunta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

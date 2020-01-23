@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Jorge,Ivan y Noelia
  */
-public class NuevaRespuesta extends javax.swing.JFrame {
+public class Vista_Nueva_Respuesta extends javax.swing.JFrame {
 	
 	private int idPregunta;
         private String respuestaCorrecta;
@@ -22,7 +22,7 @@ public class NuevaRespuesta extends javax.swing.JFrame {
 	/**
 	 * Constructor de esta vista inicia los componentes y se le aplica localizacion en pantalla
 	 */
-	public NuevaRespuesta() {
+	public Vista_Nueva_Respuesta() {
 		initComponents();
 		this.setLocation(700, 250);
 		this.setResizable(false);
@@ -241,7 +241,7 @@ public class NuevaRespuesta extends javax.swing.JFrame {
                 //aqui guardar la ubicacion en la BD !!!!! y vuelve a vista administrador
                 anadirRespuestas();
             } catch (IOException ex) {
-                Logger.getLogger(NuevaRespuesta.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Vista_Nueva_Respuesta.class.getName()).log(Level.SEVERE, null, ex);
             }
 
 		this.setVisible(false);
@@ -319,7 +319,7 @@ public class NuevaRespuesta extends javax.swing.JFrame {
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new NuevaRespuesta().setVisible(true);
+				new Vista_Nueva_Respuesta().setVisible(true);
 			}
 		});
 	}

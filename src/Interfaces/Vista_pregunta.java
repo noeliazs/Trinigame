@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import controladores.ControladorPregunta;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,7 +23,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Noelia Zarzoso  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+ * @author Noelia,ivan, jorge
  */
 public class Vista_pregunta extends javax.swing.JFrame {
 	
@@ -33,6 +35,11 @@ public class Vista_pregunta extends javax.swing.JFrame {
 	private String respuesta_correcta;
         private static int contadorPuntos;
         ArrayList<String>respuestas=new ArrayList();
+        Timer timer;
+        private static final int SEGUNDOS = 1000;
+	private static final int SEGUNDOSMIN = 0;
+        private int contadorSegundos=30;
+        private ControladorPregunta controlador;
 
 	private int id = (int) (Math.random() * ((10 - 1) +1)) + 1;;
 	
@@ -44,6 +51,8 @@ public class Vista_pregunta extends javax.swing.JFrame {
                 contadorPuntos=contador;
                 this.nombre=nombre;
                 initComponents();
+                controlador=new ControladorPregunta(this);
+                crearTimer();
                 cargarPregunta();
 		cargarRespuesta_correcta();
 		cargarRespuestas_incorrectas();
@@ -344,7 +353,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
            contadorPuntos++;
            this.setVisible(false);
            if(contadorPuntos==3){
-               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
            }
            else{
                     try {
@@ -367,7 +376,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
            contadorPuntos++;
            this.setVisible(false);
            if(contadorPuntos==3){
-               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
            }
            else{
                     try {
@@ -388,7 +397,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
            contadorPuntos++;
            this.setVisible(false);
            if(contadorPuntos==3){
-               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
            }
            else{
                     try {
@@ -410,7 +419,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
            contadorPuntos++;
            this.setVisible(false);
            if(contadorPuntos==3){
-               new Vista_listado(contadorPuntos,nombre).setVisible(true);
+               new Vista_ganador(contadorPuntos,nombre).setVisible(true);
            }
            else{
                     try {
@@ -464,6 +473,32 @@ public class Vista_pregunta extends javax.swing.JFrame {
             }
         });
     }
+    
+    /**
+	 * Creamos el timer
+	 */
+	public void crearTimer() {
+		timer = new Timer(SEGUNDOS,controlador);
+		timer.setActionCommand("TIEMPO");
+		timer.setRepeats(true);
+		timer.start();
+	}
+
+	/**
+	 * Cada segundo vamos a mandar escribir los segundos que nos quedan
+	 */
+	public void calcularTimer() {
+		if (contadorSegundos > SEGUNDOSMIN) {
+			contadorSegundos--;
+			txtTiempo.setText(contadorSegundos+"");
+		} else {
+			timer.stop();
+			System.out.println("SE ACABO EL TIEMPO");
+                        this.setVisible(false);
+                         new Vista_fallo(contadorPuntos).setVisible(true);
+                        
+		}
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRespuesta1;

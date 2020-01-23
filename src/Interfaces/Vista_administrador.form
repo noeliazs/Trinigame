@@ -110,7 +110,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="103" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnAnadirUsuario2" min="-2" pref="186" max="-2" attributes="0"/>
+                      <Component id="btnListado" min="-2" pref="186" max="-2" attributes="0"/>
                       <Component id="btnAnadirRespuestas" min="-2" pref="186" max="-2" attributes="0"/>
                       <Component id="btnAnadirPreguntas" min="-2" pref="186" max="-2" attributes="0"/>
                       <Component id="btnAnadirUsuario" min="-2" pref="186" max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnAnadirRespuestas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Component id="btnAnadirUsuario2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnListado" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -221,9 +221,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="CERRAR SESI&#xd3;N"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrar1ActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -231,34 +228,22 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="A&#xd1;ADIR USUARIO"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnadirUsuarioActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAnadirPreguntas">
           <Properties>
             <Property name="text" type="java.lang.String" value="A&#xd1;ADIR PREGUNTAS"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnadirPreguntasActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAnadirRespuestas">
           <Properties>
             <Property name="text" type="java.lang.String" value="A&#xd1;ADIR RESPUESTAS"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnadirRespuestasActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAnadirUsuario2">
+        <Component class="javax.swing.JButton" name="btnListado">
           <Properties>
             <Property name="text" type="java.lang.String" value="LISTADO PUNTUACIONES"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListadoPuntuacionesActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
