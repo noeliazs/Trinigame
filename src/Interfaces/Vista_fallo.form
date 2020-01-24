@@ -48,9 +48,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="txtPuntuacion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="txtPosicion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace min="47" pref="334" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="118" max="32767" attributes="0"/>
@@ -73,10 +71,7 @@
                   <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtPuntuacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPosicion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtPuntuacion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -167,11 +162,6 @@
         <Component class="javax.swing.JLabel" name="txtPuntuacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Puntuaci&#xf3;n:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="txtPosicion">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Posici&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">

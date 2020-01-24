@@ -23,7 +23,7 @@ public class Vista_pregunta extends javax.swing.JFrame {
         private Timer timer;
         private static final int SEGUNDOS = 1000;
 	private static final int SEGUNDOSMIN = 0;
-        private int contadorSegundos=30;
+        private int contadorSegundos=40;
         private ControladorTimer controladorTimer;
         private ControladorPregunta control;
         private static int contadorPuntos;

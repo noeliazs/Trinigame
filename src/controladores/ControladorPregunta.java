@@ -35,7 +35,7 @@ public class ControladorPregunta implements ActionListener{
         ArrayList<String>respuestas=new ArrayList();
         private  Vista_pregunta vista;
         private int id;
-        private static final int NUMPREGUNTAS=10;
+        private static final int NUMPREGUNTAS=40;
         private String categoria;
         private String pregunta;
         private String nPregunta;
@@ -141,6 +141,10 @@ public class ControladorPregunta implements ActionListener{
         }
        
 }
+    /**
+     * Conectamos con el servidor para obtener la pregunta
+     * @throws ParseException 
+     */
     
     public void cargarPregunta() throws ParseException{
 		URL url;
@@ -183,6 +187,10 @@ public class ControladorPregunta implements ActionListener{
 		}
         
     }
+    /**
+     * Conectamos con el servidor para obtener las respuestas correctas
+     * @throws ParseException 
+     */
 	
 	public void cargarRespuesta_correcta() throws ParseException{
 		
@@ -225,6 +233,10 @@ public class ControladorPregunta implements ActionListener{
 			Logger.getLogger(Vista_pregunta.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+        /**
+         * Conectamos con el servidor para obtener las respuestas incorrectas
+         * @throws ParseException 
+         */
 	
 	public void cargarRespuestas_incorrectas() throws ParseException{
 		URL url;
@@ -264,6 +276,9 @@ public class ControladorPregunta implements ActionListener{
 		
 		barajear();
 	}
+        /**
+         * Obtenemos las preguntas barajeadas de forma aleatoria
+         */
 	
 	public void barajear(){
              Collections.shuffle(respuestas); 

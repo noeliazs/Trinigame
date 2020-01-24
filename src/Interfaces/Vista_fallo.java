@@ -38,7 +38,6 @@ public class Vista_fallo extends javax.swing.JFrame {
         btnSalirFallo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtPuntuacion = new javax.swing.JLabel();
-        txtPosicion = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,8 +95,6 @@ public class Vista_fallo extends javax.swing.JFrame {
 
         txtPuntuacion.setText("Puntuación:");
 
-        txtPosicion.setText("Posición:");
-
         jLabel5.setText("Has sido eliminado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -109,9 +106,7 @@ public class Vista_fallo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(txtPuntuacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtPosicion)
-                .addGap(47, 47, 47))
+                .addGap(47, 334, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(118, Short.MAX_VALUE)
                 .addComponent(jLabel2)
@@ -130,9 +125,7 @@ public class Vista_fallo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPuntuacion)
-                    .addComponent(txtPosicion))
+                .addComponent(txtPuntuacion)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -197,7 +190,6 @@ public class Vista_fallo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JLabel txtPosicion;
     private javax.swing.JLabel txtPuntuacion;
     // End of variables declaration//GEN-END:variables
 }
