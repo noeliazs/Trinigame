@@ -1,8 +1,18 @@
 package Interfaces;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -12,6 +22,8 @@ public class Vista_ganador extends javax.swing.JFrame {
 	
 	private static int contador;
         private static String nombre;
+        private ArrayList<String>nombres=new ArrayList();
+        private ArrayList<String>puntuaciones=new ArrayList();
         
 	
 	/**
@@ -21,11 +33,17 @@ public class Vista_ganador extends javax.swing.JFrame {
                 this.contador=contador;
                 this.nombre=nombre;
 		initComponents();
-
-		this.setLocation(700, 250);
 		this.setResizable(false);
                 txtJug1.setText(nombre);
                 txtp1.setText(contador+"");
+                  try {
+                cargarDatos();
+            } catch (ParseException ex) {
+                Logger.getLogger(Vista_listado.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Vista_listado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            escribirDatos();
 	}
        
 
@@ -315,6 +333,52 @@ public class Vista_ganador extends javax.swing.JFrame {
 			}
 		});
     }//GEN-LAST:event_btnSalirGanadorActionPerformed
+    public void cargarDatos() throws MalformedURLException, IOException, ParseException{
+            URL url;
+			url = new URL("http://localhost/servidor/public/listaPuntuaciones");
+			// Realizando la petición GET
+			URLConnection con = url.openConnection();
+
+			// Leyendo el resultado
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String linea;
+			linea = in.readLine();
+			System.out.println(linea);
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(linea);
+			JSONArray json = (JSONArray) obj;
+                        
+                        for (int i = 0; i < json.size(); i++) {
+				JSONObject object = (JSONObject) json.get(i);
+				nombres.add(object.get("nombre").toString());
+                                puntuaciones.add(object.get("puntos").toString());
+			}
+        }
+        
+        public void escribirDatos(){
+            
+                txtJug2.setText(nombres.get(0));
+                txtJug3.setText(nombres.get(1));
+                txtJug4.setText(nombres.get(2));
+                txtJug5.setText(nombres.get(3));
+                txtJug6.setText(nombres.get(4));
+                txtJug7.setText(nombres.get(5));
+                txtJug8.setText(nombres.get(6));
+                txtJug9.setText(nombres.get(7));
+                txtJug10.setText(nombres.get(8));
+            
+            
+                txtp2.setText(puntuaciones.get(0));
+                txtp3.setText(puntuaciones.get(1));
+                txtp4.setText(puntuaciones.get(2));
+                txtp5.setText(puntuaciones.get(3));
+                txtp6.setText(puntuaciones.get(4));
+                txtp7.setText(puntuaciones.get(5));
+                txtp8.setText(puntuaciones.get(6));
+                txtp9.setText(puntuaciones.get(7));
+                txtp10.setText(puntuaciones.get(8));
+            
+        }
 
 	
 
